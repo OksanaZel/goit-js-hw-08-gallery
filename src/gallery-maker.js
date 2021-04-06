@@ -21,3 +21,12 @@ const createGalleryItem = ({ preview, original, description }) => {
 
 const markup = galleryItems.map(createGalleryItem).join('');
 galleryList.insertAdjacentHTML("beforeend", markup);
+
+
+/*Реализация делегирования на галерее ul.js-gallery и получение url большого изображения. */
+
+// galleryList.addEventListener('.js-gallery', getOriginalImage)
+
+// function getOriginalImage(evt) {
+//     console.log(evt.target.dataset.value);
+// }
