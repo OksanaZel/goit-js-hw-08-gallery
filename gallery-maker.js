@@ -38,7 +38,7 @@ function getOriginalImageUrl(evt) {
   const originalImgAlt = evt.target.alt;
 
   openModal();
-  addOriginalImagePreview(originalImgUrl);
+  addOriginalImagePreview(originalImgUrl, originalImgAlt);
   // console.log(originalImgUrl)
 }
 
@@ -58,9 +58,12 @@ const originalImageDiv = document.querySelector('.lightbox__image');
 function addOriginalImagePreview (url, alt){
   originalImageDiv.src = `${url}`;
   originalImageDiv.alt = `${alt}`;
+  console.log(originalImageDiv);
 }
 
 /*Закрытие модального окна по клику на кнопку button[data-action="close-lightbox"]. */
+/*Закрытие модального окна по клику на div.lightbox__overlay.
+Закрытие модального окна по нажатию клавиши ESC. */
 
 const modalIsClose = document.querySelector('button[data-action="close-lightbox"]');
 console.log(modalIsClose);
@@ -77,6 +80,10 @@ function closeModal() {
 
 function clearImageSrc() {
   originalImageDiv.src = '';
-
+  originalImageDiv.alt = '';
   console.log(originalImageDiv);
+  
 }
+ /*Пролистывание изображений галереи в открытом модальном окне клавишами "влево" и "вправо". */
+
+
