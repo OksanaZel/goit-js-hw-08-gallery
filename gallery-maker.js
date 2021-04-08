@@ -2,7 +2,7 @@ import galleryItems from "./gallery-items.js";
 
 /*Создание и рендер разметки по массиву данных и предоставленному шаблону. */
 const galleryList = document.querySelector('.gallery');
-console.log(galleryList);
+
 
 const createGalleryItem = ({ preview, original, description }) => {
   return `<li class="gallery__item">
@@ -37,15 +37,13 @@ function getOriginalImageUrl(evt) {
   const originalImgUrl = evt.target.dataset.source;
   const originalImgAlt = evt.target.alt;
 
-  openModal();
   addOriginalImagePreview(originalImgUrl, originalImgAlt);
-  // console.log(originalImgUrl)
+  openModal();
 }
 
 /*Открытие модального окна по клику на элементе галереи. */
 
-  const modalIsOpen = document.querySelector('.lightbox');
-  console.log(modalIsOpen);
+const modalIsOpen = document.querySelector('.lightbox');
 
 function openModal() {
   modalIsOpen.classList.add('is-open');
@@ -58,7 +56,6 @@ const originalImageDiv = document.querySelector('.lightbox__image');
 function addOriginalImagePreview (url, alt){
   originalImageDiv.src = `${url}`;
   originalImageDiv.alt = `${alt}`;
-  console.log(originalImageDiv);
 }
 
 /*Закрытие модального окна по клику на кнопку button[data-action="close-lightbox"]. */
@@ -66,13 +63,22 @@ function addOriginalImagePreview (url, alt){
 Закрытие модального окна по нажатию клавиши ESC. */
 
 const modalIsClose = document.querySelector('button[data-action="close-lightbox"]');
-console.log(modalIsClose);
+modalIsClose.addEventListener('click', closeModal);
 
-modalIsClose.addEventListener('click', closeModal)
+const modalOverlay = document.querySelector('.lightbox__overlay');
+modalOverlay.addEventListener('click', closeModal);
+
+window.addEventListener('keydown', onEscPress);
 
 function closeModal() {
   modalIsOpen.classList.remove('is-open');
   clearImageSrc();
+}
+
+function onEscPress(event) {
+  if (event.code === 'Escape') {
+    closeModal();
+  }
 }
 
 /*Очистка значения атрибута src элемента img.lightbox__image. Это необходимо для того, 
@@ -81,9 +87,9 @@ function closeModal() {
 function clearImageSrc() {
   originalImageDiv.src = '';
   originalImageDiv.alt = '';
-  console.log(originalImageDiv);
-  
+  // console.log(originalImageDiv);
 }
- /*Пролистывание изображений галереи в открытом модальном окне клавишами "влево" и "вправо". */
+/*Пролистывание изображений галереи в открытом модальном окне клавишами "влево" и "вправо". */
+
 
 
