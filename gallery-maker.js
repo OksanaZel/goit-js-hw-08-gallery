@@ -33,10 +33,10 @@ function getOriginalImageUrl(evt) {
     return;
   }
 
-  const originalImgUrl = evt.target.dataset.source;
-  const originalImgAlt = evt.target.alt;
+  const currentImgUrl = evt.target.dataset.source;
+  const currentImgAlt = evt.target.alt;
 
-  addOriginalImagePreview(originalImgUrl, originalImgAlt);
+  addCurrentImagePreview(currentImgUrl, currentImgAlt);
   openModal();
 }
 
@@ -52,7 +52,7 @@ function openModal() {
 
 const originalImageAttr = document.querySelector('.lightbox__image');
 
-function addOriginalImagePreview (url, alt){
+function addCurrentImagePreview (url, alt){
   originalImageAttr.src = `${url}`;
   originalImageAttr.alt = `${alt}`;
 }
@@ -89,18 +89,18 @@ function clearImageSrc() {
 }
 /*Пролистывание изображений галереи в открытом модальном окне клавишами "влево" и "вправо". */
 
-const imagesList = [...galleryItems];
-let currentIdx = 1;
+// const imagesList = [...galleryItems];
+// let currentIdx = 1;
 
-window.addEventListener('keydown', turnaboutImg)
+// window.addEventListener('keydown', turnaboutImg)
   
-function turnaboutImg(evt) {
-  if (evt.code === 'ArrowRight' && modalIsOpen.classList.contains('is-open')) {
-    console.log(evt.code);
-  }
+// function turnaboutImg(evt) {
+//   if (evt.code === 'ArrowRight' && modalIsOpen.classList.contains('is-open')) {
+//     console.log(evt.code);
+//   }
 
-  if(evt.code === 'ArrowLeft' && modalIsOpen.classList.contains('is-open')) {
-    console.log(evt.code);
-  }
-}
+//   if(evt.code === 'ArrowLeft' && modalIsOpen.classList.contains('is-open')) {
+//     console.log(evt.code);
+//   }
+// }
 
