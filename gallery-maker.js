@@ -3,7 +3,6 @@ import galleryItems from "./gallery-items.js";
 /*Создание и рендер разметки по массиву данных и предоставленному шаблону. */
 const galleryList = document.querySelector('.gallery');
 
-
 const createGalleryItem = ({ preview, original, description }) => {
   return `<li class="gallery__item">
     <a
@@ -22,7 +21,7 @@ const createGalleryItem = ({ preview, original, description }) => {
 
 const markup = galleryItems.map(createGalleryItem).join('');
 galleryList.insertAdjacentHTML("beforeend", markup);
-
+  
 /*Реализация делегирования на галерее ul.js-gallery и получение url большого изображения. */
 
 galleryList.addEventListener('click', getOriginalImageUrl);
@@ -51,11 +50,11 @@ function openModal() {
 
 /*Подмена значения атрибута src элемента img.lightbox__image. */
 
-const originalImageDiv = document.querySelector('.lightbox__image');
+const originalImageAttr = document.querySelector('.lightbox__image');
 
 function addOriginalImagePreview (url, alt){
-  originalImageDiv.src = `${url}`;
-  originalImageDiv.alt = `${alt}`;
+  originalImageAttr.src = `${url}`;
+  originalImageAttr.alt = `${alt}`;
 }
 
 /*Закрытие модального окна по клику на кнопку button[data-action="close-lightbox"]. */
@@ -68,15 +67,15 @@ modalIsClose.addEventListener('click', closeModal);
 const modalOverlay = document.querySelector('.lightbox__overlay');
 modalOverlay.addEventListener('click', closeModal);
 
-window.addEventListener('keydown', onEscPress);
-
 function closeModal() {
   modalIsOpen.classList.remove('is-open');
   clearImageSrc();
 }
 
-function onEscPress(event) {
-  if (event.code === 'Escape') {
+window.addEventListener('keydown', onEscPress);
+
+function onEscPress(evt) {
+  if (evt.code === 'Escape') {
     closeModal();
   }
 }
@@ -85,11 +84,23 @@ function onEscPress(event) {
 чтобы при следующем открытии модального окна, пока грузится изображение, мы не видели предыдущее. */
 
 function clearImageSrc() {
-  originalImageDiv.src = '';
-  originalImageDiv.alt = '';
-  // console.log(originalImageDiv);
+  originalImageAttr.src = '';
+  originalImageAttr.alt = '';
 }
 /*Пролистывание изображений галереи в открытом модальном окне клавишами "влево" и "вправо". */
 
+const imagesList = [...galleryItems];
+let currentIdx = 1;
 
+window.addEventListener('keydown', turnaboutImg)
+  
+function turnaboutImg(evt) {
+  if (evt.code === 'ArrowRight' && modalIsOpen.classList.contains('is-open')) {
+    console.log(evt.code);
+  }
+
+  if(evt.code === 'ArrowLeft' && modalIsOpen.classList.contains('is-open')) {
+    console.log(evt.code);
+  }
+}
 
