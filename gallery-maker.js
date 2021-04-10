@@ -45,25 +45,26 @@ function getOriginalImageUrl(evt) {
   openModal();
 
   const imagesListLink = galleryItems.map(item => item.original);
-  let currentIdx = imagesListLink.indexOf(currentImgUrl);
   const imagesListDescription = galleryItems.map(item => item.description);
+  let currentIdx = imagesListLink.indexOf(currentImgUrl);
   
   window.addEventListener('keydown', turnaboutImg);
 
   function turnaboutImg(evt) {
 
       if (evt.code === 'ArrowRight' && refs.modalIsOpen.classList.contains('is-open')) {
-      currentIdx += 1;
+        currentIdx += 1;
         refs.currentImage.src = imagesListLink[currentIdx];
         refs.currentImage.alt = imagesListDescription[currentIdx];
-    }
+      }
 
-    if (evt.code === 'ArrowLeft' && refs.modalIsOpen.classList.contains('is-open')) {
-      currentIdx -= 1;
-      refs.currentImage.src = imagesListLink[currentIdx];
-      refs.currentImage.alt = imagesListDescription[currentIdx];
-    }
-    }
+      if (evt.code === 'ArrowLeft' && refs.modalIsOpen.classList.contains('is-open')) {
+        currentIdx -= 1;
+        refs.currentImage.src = imagesListLink[currentIdx];
+        refs.currentImage.alt = imagesListDescription[currentIdx];
+      }
+    
+  }
 }
 
 /*Открытие модального окна по клику на элементе галереи. */
