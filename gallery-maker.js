@@ -1,8 +1,15 @@
 import galleryItems from "./gallery-items.js";
 
+const refs = {
+  galleryList: document.querySelector('.gallery'),
+  modalIsOpen: document.querySelector('.lightbox'),
+  originalImageAttr: document.querySelector('.lightbox__image'),
+  modalIsClose: document.querySelector('button[data-action="close-lightbox"]'),
+  modalOverlay: document.querySelector('.lightbox__overlay'),
+  currentImage: document.querySelector('.lightbox__image'),
+}
+
 /*Создание и рендер разметки по массиву данных и предоставленному шаблону. */
-const galleryList = document.querySelector('.gallery');
-// console.log(galleryList);
 
 const createGalleryItem = ({ preview, original, description }) => {
   return `<li class="gallery__item">
@@ -18,11 +25,11 @@ const createGalleryItem = ({ preview, original, description }) => {
 }
 
 const markup = galleryItems.map(createGalleryItem).join('');
-galleryList.insertAdjacentHTML("beforeend", markup);
+refs.galleryList.insertAdjacentHTML("beforeend", markup);
   
 /*Реализация делегирования на галерее ul.js-gallery и получение url большого изображения. */
 
-galleryList.addEventListener('click', getOriginalImageUrl);
+refs.galleryList.addEventListener('click', getOriginalImageUrl);
 
 function getOriginalImageUrl(evt) {
   evt.preventDefault();
@@ -40,59 +47,48 @@ function getOriginalImageUrl(evt) {
   const imagesListLink = galleryItems.map(item => item.original);
   let currentIdx = imagesListLink.indexOf(currentImgUrl);
   const imagesListDescription = galleryItems.map(item => item.description);
-  // let currentDescription = imagesListDescription.indexOf(currentImgAlt);
-  // console.log(currentDescription);
   
   window.addEventListener('keydown', turnaboutImg);
-  
-  const currentImage = document.querySelector('.lightbox__image');
-  // console.log(currentImage);
 
   function turnaboutImg(evt) {
 
-      if (evt.code === 'ArrowRight' && modalIsOpen.classList.contains('is-open')) {
+      if (evt.code === 'ArrowRight' && refs.modalIsOpen.classList.contains('is-open')) {
       currentIdx += 1;
-        currentImage.src = imagesListLink[currentIdx];
-        currentImage.alt = imagesListDescription[currentIdx];
+        refs.currentImage.src = imagesListLink[currentIdx];
+        refs.currentImage.alt = imagesListDescription[currentIdx];
     }
 
-    if (evt.code === 'ArrowLeft' && modalIsOpen.classList.contains('is-open')) {
+    if (evt.code === 'ArrowLeft' && refs.modalIsOpen.classList.contains('is-open')) {
       currentIdx -= 1;
-      currentImage.src = imagesListLink[currentIdx];
-      currentImage.alt = imagesListDescription[currentIdx];
+      refs.currentImage.src = imagesListLink[currentIdx];
+      refs.currentImage.alt = imagesListDescription[currentIdx];
     }
     }
 }
 
 /*Открытие модального окна по клику на элементе галереи. */
 
-const modalIsOpen = document.querySelector('.lightbox');
-
 function openModal() {
-  modalIsOpen.classList.add('is-open');
+  refs.modalIsOpen.classList.add('is-open');
 }
 
 /*Подмена значения атрибута src элемента img.lightbox__image. */
 
-const originalImageAttr = document.querySelector('.lightbox__image');
-
 function addCurrentImageAttr (url, alt){
-  originalImageAttr.src = `${url}`;
-  originalImageAttr.alt = `${alt}`;
+  refs.originalImageAttr.src = `${url}`;
+  refs.originalImageAttr.alt = `${alt}`;
 }
 
 /*Закрытие модального окна по клику на кнопку button[data-action="close-lightbox"]. */
 /*Закрытие модального окна по клику на div.lightbox__overlay.
 Закрытие модального окна по нажатию клавиши ESC. */
 
-const modalIsClose = document.querySelector('button[data-action="close-lightbox"]');
-modalIsClose.addEventListener('click', closeModal);
+refs.modalIsClose.addEventListener('click', closeModal);
 
-const modalOverlay = document.querySelector('.lightbox__overlay');
-modalOverlay.addEventListener('click', closeModal);
+refs.modalOverlay.addEventListener('click', closeModal);
 
 function closeModal() {
-  modalIsOpen.classList.remove('is-open');
+  refs.modalIsOpen.classList.remove('is-open');
   clearImageSrc();
 }
 
@@ -108,11 +104,12 @@ function onEscPress(evt) {
 чтобы при следующем открытии модального окна, пока грузится изображение, мы не видели предыдущее. */
 
 function clearImageSrc() {
-  originalImageAttr.src = '';
-  originalImageAttr.alt = '';
+  refs.originalImageAttr.src = '';
+  refs. originalImageAttr.alt = '';
 }
 
 /*Пролистывание изображений галереи в открытом модальном окне клавишами "влево" и "вправо". */
+
 // const galleryListItems = document.querySelector('.gallery__item');
 // console.log(galleryListItems);
 
