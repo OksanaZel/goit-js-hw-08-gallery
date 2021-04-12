@@ -12,8 +12,7 @@ const refs = {
 /*Создание и рендер разметки по массиву данных и предоставленному шаблону. */
 
 const createGalleryItem = ({ preview, original, description }) => {
-  return `<li class="gallery__item">
-  <a class="gallery__link" href="${original}">
+  return `<li class="gallery__item"><a class="gallery__link" href="${original}">
   <img
       class="gallery__image"
       src="${preview}"
@@ -38,24 +37,25 @@ function getOriginalImageUrl(evt) {
     return;
   }
 
+  openModal();
+
   const currentImgUrl = evt.target.dataset.source;
   const currentImgAlt = evt.target.alt;
 
   addCurrentImageAttr(currentImgUrl, currentImgAlt);
-  openModal();
 
+  /*Пролистывание изображений галереи в открытом модальном окне клавишами "влево" и "вправо". */
   const imagesListLink = galleryItems.map(item => item.original);
   const imagesListDescription = galleryItems.map(item => item.description);
   let currentIdx = imagesListLink.indexOf(currentImgUrl);
-  // console.log(imagesListLink.length);
   
   window.addEventListener('keydown', turnaboutImg);
 
   function turnaboutImg(evt) {
-      
+
     if (evt.code === 'ArrowRight') {
       if (currentIdx >= galleryItems.length - 1) {
-        closeModal();
+        return;
       }
         currentIdx += 1;
         refs.currentImage.src = imagesListLink[currentIdx];
@@ -64,7 +64,7 @@ function getOriginalImageUrl(evt) {
 
     if (evt.code === 'ArrowLeft') {
       if (currentIdx <= 0) {
-        closeModal();
+        return;
       }
         currentIdx -= 1;
         refs.currentImage.src = imagesListLink[currentIdx];
@@ -114,23 +114,3 @@ function clearImageSrc() {
   refs.originalImageAttr.src = '';
   refs. originalImageAttr.alt = '';
 }
-
-/*Пролистывание изображений галереи в открытом модальном окне клавишами "влево" и "вправо". */
-
-// const galleryListItems = document.querySelector('.gallery__item');
-// console.log(galleryListItems);
-
-// window.addEventListener('keydown', changeSibling);
-
-//   function changeSibling(evt){
-//   if (evt.code === 'ArrowRight') {
-//     console.log(galleryListItems.nextSibling.childNodes);
-//   }
-
-//   if (evt.code === 'ArrowLeft') {
-//     console.log(galleryListItems.previousSibling);
-//   }
-// }
-
-// const imagesList = galleryItems.map(item => item.original);
-// console.log(imagesList);
