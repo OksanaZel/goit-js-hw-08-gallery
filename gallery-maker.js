@@ -55,7 +55,7 @@ function getOriginalImageUrl(evt) {
       
     if (evt.code === 'ArrowRight') {
       if (currentIdx >= galleryItems.length - 1) {
-        return
+        closeModal();
       }
         currentIdx += 1;
         refs.currentImage.src = imagesListLink[currentIdx];
@@ -64,7 +64,7 @@ function getOriginalImageUrl(evt) {
 
     if (evt.code === 'ArrowLeft') {
       if (currentIdx <= 0) {
-        return
+        closeModal();
       }
         currentIdx -= 1;
         refs.currentImage.src = imagesListLink[currentIdx];
