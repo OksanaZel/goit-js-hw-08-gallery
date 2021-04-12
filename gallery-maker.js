@@ -47,23 +47,29 @@ function getOriginalImageUrl(evt) {
   const imagesListLink = galleryItems.map(item => item.original);
   const imagesListDescription = galleryItems.map(item => item.description);
   let currentIdx = imagesListLink.indexOf(currentImgUrl);
+  // console.log(imagesListLink.length);
   
   window.addEventListener('keydown', turnaboutImg);
 
   function turnaboutImg(evt) {
-
-      if (evt.code === 'ArrowRight' && refs.modalIsOpen.classList.contains('is-open')) {
+      
+    if (evt.code === 'ArrowRight') {
+      if (currentIdx >= galleryItems.length - 1) {
+        return
+      }
         currentIdx += 1;
         refs.currentImage.src = imagesListLink[currentIdx];
         refs.currentImage.alt = imagesListDescription[currentIdx];
-      }
+    }
 
-      if (evt.code === 'ArrowLeft' && refs.modalIsOpen.classList.contains('is-open')) {
+    if (evt.code === 'ArrowLeft') {
+      if (currentIdx <= 0) {
+        return
+      }
         currentIdx -= 1;
         refs.currentImage.src = imagesListLink[currentIdx];
         refs.currentImage.alt = imagesListDescription[currentIdx];
-      }
-    
+    }
   }
 }
 
