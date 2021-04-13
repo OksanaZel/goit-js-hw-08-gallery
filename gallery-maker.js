@@ -96,7 +96,6 @@ refs.modalOverlay.addEventListener('click', closeModal);
 
 function closeModal() {
   window.removeEventListener('keydown', onEscPress);
-  window.removeEventListener('keydown', changeImage);
   refs.modalIsOpen.classList.remove('is-open');
   clearImageSrc();
 }
