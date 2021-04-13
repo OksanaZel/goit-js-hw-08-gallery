@@ -76,6 +76,7 @@ function onImageClick(evt) {
 /*Открытие модального окна по клику на элементе галереи. */
 
 function openModal() {
+  window.addEventListener('keydown', onEscPress);
   refs.modalIsOpen.classList.add('is-open');
 }
 
@@ -91,15 +92,14 @@ function addCurrentImageAttr (url, alt){
 Закрытие модального окна по нажатию клавиши ESC. */
 
 refs.modalIsClose.addEventListener('click', closeModal);
-
 refs.modalOverlay.addEventListener('click', closeModal);
 
 function closeModal() {
+  window.removeEventListener('keydown', onEscPress);
+  window.removeEventListener('keydown', changeImage);
   refs.modalIsOpen.classList.remove('is-open');
   clearImageSrc();
 }
-
-window.addEventListener('keydown', onEscPress);
 
 function onEscPress(evt) {
   if (evt.code === 'Escape') {
