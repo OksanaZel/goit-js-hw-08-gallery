@@ -28,9 +28,9 @@ refs.galleryList.insertAdjacentHTML("beforeend", markup);
   
 /*Реализация делегирования на галерее ul.js-gallery и получение url большого изображения. */
 
-refs.galleryList.addEventListener('click', getOriginalImageUrl);
+refs.galleryList.addEventListener('click', onImageClick);
 
-function getOriginalImageUrl(evt) {
+function onImageClick(evt) {
   evt.preventDefault();
 
   if (evt.target.nodeName !== 'IMG') {
@@ -49,9 +49,9 @@ function getOriginalImageUrl(evt) {
   const imagesListDescription = galleryItems.map(item => item.description);
   let currentIdx = imagesListLink.indexOf(currentImgUrl);
   
-  window.addEventListener('keydown', turnaboutImg);
+  window.addEventListener('keydown', changeImage);
 
-  function turnaboutImg(evt) {
+  function changeImage(evt) {
 
     if (evt.code === 'ArrowRight') {
       if (currentIdx >= galleryItems.length - 1) {
