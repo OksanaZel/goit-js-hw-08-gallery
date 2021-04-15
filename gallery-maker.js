@@ -76,8 +76,8 @@ function onImageClick(evt) {
 /*Открытие модального окна по клику на элементе галереи. */
 
 function openModal() {
-  window.addEventListener('keydown', onEscPress);
   refs.modalIsOpen.classList.add('is-open');
+  window.addEventListener('keydown', onEscPress);
 }
 
 /*Подмена значения атрибута src элемента img.lightbox__image. */
