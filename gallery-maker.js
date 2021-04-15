@@ -101,11 +101,11 @@ function closeModal() {
 
 refs.modalIsOpen.addEventListener('click', onOverlayClickClose);
 
-function onOverlayClickClose (evt) {
-  if (evt.target.nodeName !== 'IMG') {
-    closeModal();
-  }
-}
+// function onOverlayClickClose (evt) {
+//   if (evt.target.nodeName !== 'IMG') {
+//     closeModal();
+//   }
+// }
 
 function onEscPress(evt) {
   if (evt.code === 'Escape') {
