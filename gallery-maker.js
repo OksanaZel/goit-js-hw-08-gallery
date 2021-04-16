@@ -35,9 +35,6 @@ function onImageClick(evt) {
   console.log(refs.originalImageAttr.src);
   console.log(refs.originalImageAttr.alt)
 
-
-  
-
   // addCurrentImageAttr(currentImgUrl, currentImgAlt);
 
   /*Пролистывание изображений галереи в открытом модальном окне клавишами "влево" и "вправо". */
@@ -74,6 +71,7 @@ function onImageClick(evt) {
 function openModal() {
   refs.modalIsOpen.classList.add('is-open');
   window.addEventListener('keydown', onEscPress);
+  refs.modalIsOpen.addEventListener('click', onOverlayClickClose);
 }
 
 /*Подмена значения атрибута src элемента img.lightbox__image. */
@@ -91,6 +89,7 @@ refs.modalIsClose.addEventListener('click', closeModal);
 
 function closeModal() {
   window.removeEventListener('keydown', onEscPress);
+  refs.modalIsOpen.removeEventListener('click', onOverlayClickClose);
   refs.modalIsOpen.classList.remove('is-open');
 
  /*Очистка значения атрибута src элемента img.lightbox__image. Это необходимо для того,
@@ -99,13 +98,13 @@ function closeModal() {
   refs.originalImageAttr.alt = '';
 }
 
-refs.modalIsOpen.addEventListener('click', onOverlayClickClose);
+// refs.modalIsOpen.addEventListener('click', onOverlayClickClose);
 
-// function onOverlayClickClose (evt) {
-//   if (evt.target.nodeName !== 'IMG') {
-//     closeModal();
-//   }
-// }
+function onOverlayClickClose (evt) {
+  if (evt.target.nodeName !== 'IMG') {
+    closeModal();
+  }
+}
 
 function onEscPress(evt) {
   if (evt.code === 'Escape') {
