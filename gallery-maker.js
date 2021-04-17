@@ -33,83 +33,13 @@ function onImageClick(evt) {
   refs.originalImageAttr.src = evt.target.dataset.source;
   refs.originalImageAttr.alt = evt.target.alt;
 
-  changeImage();
 
    /*Пролистывание изображений галереи в открытом модальном окне клавишами "влево" и "вправо". */
-// const imagesListLink = galleryItems.map(item => item.original);
-// const imagesListDescription = galleryItems.map(item => item.description);
-// let currentIdx = imagesListLink.indexOf(refs.originalImageAttr.src);
-
-// window.addEventListener('keydown', changeImage);
-
-// function changeImage(evt) {
-
-//     if (evt.code === 'ArrowRight') {
-//       if (currentIdx >= imagesListLink.length - 1) {
-//         return;
-//       }
-//       currentIdx += 1;
-//       refs.originalImageAttr.src = imagesListLink[currentIdx];
-//       refs.originalImageAttr.alt = imagesListDescription[currentIdx];
-//     }
-
-//     if (evt.code === 'ArrowLeft') {
-//       if (currentIdx <= 0) {
-//         return;
-//       }
-//       currentIdx -= 1;
-//       refs.originalImageAttr.src = imagesListLink[currentIdx];
-//       refs.originalImageAttr.alt = imagesListDescription[currentIdx];
-//     }
-//   }
-}
-
-/*Открытие модального окна по клику на элементе галереи. */
-
-function openModal() {
-  refs.modalIsOpen.classList.add('is-open');
-  window.addEventListener('keydown', onEscPress);
-  refs.modalIsOpen.addEventListener('click', onOverlayClickClose);
-  window.addEventListener('keydown', changeImage);
-}
-
-
-/*Закрытие модального окна по клику на кнопку button[data-action="close-lightbox"]. */
-/*Закрытие модального окна по клику на div.lightbox__overlay.
-Закрытие модального окна по нажатию клавиши ESC. */
-
-refs.modalIsClose.addEventListener('click', closeModal);
-
-function closeModal() {
-  window.removeEventListener('keydown', onEscPress);
-  window.removeEventListener('keydown', changeImage);
-  refs.modalIsOpen.removeEventListener('click', onOverlayClickClose)
-  refs.modalIsOpen.classList.remove('is-open');
-
- /*Очистка значения атрибута src элемента img.lightbox__image. Это необходимо для того,
-чтобы при следующем открытии модального окна, пока грузится изображение, мы не видели предыдущее. */
-  refs.originalImageAttr.src = '';
-  refs.originalImageAttr.alt = '';
-}
-
-function onOverlayClickClose (evt) {
-  if (evt.target.nodeName !== 'IMG') {
-    closeModal();
-  }
-}
-
-function onEscPress(evt) {
-  if (evt.code === 'Escape') {
-    closeModal();
-  }
-}
-
-/*Пролистывание изображений галереи в открытом модальном окне клавишами "влево" и "вправо". */
 const imagesListLink = galleryItems.map(item => item.original);
 const imagesListDescription = galleryItems.map(item => item.description);
 let currentIdx = imagesListLink.indexOf(refs.originalImageAttr.src);
 
-// window.addEventListener('keydown', changeImage);
+window.addEventListener('keydown', changeImage);
 
 function changeImage(evt) {
 
@@ -131,4 +61,46 @@ function changeImage(evt) {
       refs.originalImageAttr.alt = imagesListDescription[currentIdx];
     }
   }
+}
+
+/*Открытие модального окна по клику на элементе галереи. */
+
+function openModal() {
+  refs.modalIsOpen.classList.add('is-open');
+  window.addEventListener('keydown', onEscPress);
+  refs.modalIsOpen.addEventListener('click', onOverlayClickClose);
+  // window.addEventListener('keydown', changeImage);
+}
+
+
+/*Закрытие модального окна по клику на кнопку button[data-action="close-lightbox"]. */
+/*Закрытие модального окна по клику на div.lightbox__overlay.
+Закрытие модального окна по нажатию клавиши ESC. */
+
+refs.modalIsClose.addEventListener('click', closeModal);
+
+function closeModal() {
+  window.removeEventListener('keydown', onEscPress);
+  // window.removeEventListener('keydown', changeImage);
+  refs.modalIsOpen.removeEventListener('click', onOverlayClickClose)
+  refs.modalIsOpen.classList.remove('is-open');
+
+ /*Очистка значения атрибута src элемента img.lightbox__image. Это необходимо для того,
+чтобы при следующем открытии модального окна, пока грузится изображение, мы не видели предыдущее. */
+  refs.originalImageAttr.src = '';
+  refs.originalImageAttr.alt = '';
+}
+
+function onOverlayClickClose (evt) {
+  if (evt.target.nodeName !== 'IMG') {
+    closeModal();
+  }
+}
+
+function onEscPress(evt) {
+  if (evt.code === 'Escape') {
+    closeModal();
+  }
+}
+
 
